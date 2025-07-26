@@ -1,0 +1,352 @@
+/* EmployeeProfile.css */
+
+.employee-profile-container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  padding: 1rem;
+}
+
+.employee-profile-wrapper {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.employee-profile-header {
+  margin-bottom: 1.5rem;
+}
+
+.employee-profile-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #000000;
+  line-height: 1.6;
+}
+
+.employee-profile-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.employee-profile-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Card Styles */
+.employee-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.card-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #6b7280;
+}
+
+.card-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #000000;
+}
+
+.card-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.card-action-btn {
+  padding: 0.25rem;
+  border: none;
+  background: transparent;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.card-action-btn:hover {
+  background-color: #f3f4f6;
+}
+
+.card-action-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: #6b7280;
+}
+
+/* Card Content */
+.card-content {
+  padding: 0.75rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.field-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.field-value {
+  font-size: 0.75rem;
+  color: #000000;
+}
+
+.field-input {
+  width: 100%;
+  font-size: 0.75rem;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  transition: border-color 0.2s ease;
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+/* Edit Actions */
+.edit-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.save-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 0.75rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.save-btn:hover {
+  background-color: #374151;
+}
+
+.cancel-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #d1d5db;
+  background-color: transparent;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #f9fafb;
+}
+
+.btn-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+/* Leave Balance Specific Styles */
+.leave-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.leave-type {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.leave-type-title {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #000000;
+  text-transform: capitalize;
+}
+
+.leave-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.leave-stat {
+  text-align: center;
+}
+
+.leave-stat-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.leave-stat-value {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #000000;
+}
+
+.leave-progress-bar {
+  width: 100%;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  height: 0.5rem;
+}
+
+.leave-progress-fill {
+  background-color: #000000;
+  height: 0.5rem;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* Mobile-first responsive design */
+@media screen and (max-width: 480px) {
+  .employee-profile-container {
+    padding: 0.75rem;
+  }
+  
+  .employee-profile-title {
+    font-size: 1.125rem;
+  }
+  
+  .card-header {
+    padding: 0.625rem;
+  }
+  
+  .card-content {
+    padding: 0.625rem;
+  }
+  
+  .card-grid {
+    gap: 0.625rem;
+  }
+}
+
+/* Small tablets */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .employee-profile-container {
+    padding: 1rem;
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .field-full-width {
+    grid-column: span 2;
+  }
+}
+
+/* Large tablets and small laptops */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .employee-profile-container {
+    padding: 1.25rem;
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .field-full-width {
+    grid-column: span 2;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1025px) {
+  .employee-profile-container {
+    padding: 1.5rem;
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .field-full-width {
+    grid-column: span 2;
+  }
+  
+  .employee-profile-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Handle very wide screens */
+@media screen and (min-width: 1920px) {
+  .employee-profile-wrapper {
+    max-width: 80rem;
+  }
+  
+  .employee-profile-container {
+    padding: 2rem;
+  }
+}
+
+/* PWA specific adjustments */
+@media screen and (max-height: 600px) {
+  .employee-profile-container {
+    padding: 0.5rem;
+  }
+  
+  .employee-profile-header {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Ensure proper display on iOS devices */
+@supports (-webkit-touch-callout: none) {
+  .employee-profile-container {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .card-icon,
+  .card-action-icon,
+  .btn-icon {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}

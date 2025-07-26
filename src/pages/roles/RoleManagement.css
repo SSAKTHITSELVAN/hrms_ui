@@ -1,0 +1,730 @@
+/* EmployeeManagement.css - Clean, minimal styling */
+
+/* Base Layout */
+.employee-management {
+  min-height: 100vh;
+  background-color: #ffffff;
+  /* Add padding-top equal to the header height to prevent content from being hidden under the fixed header */
+  padding-top: 64px; /* Height of the .laptop-header from LaptopDashboardLayout.css */
+  box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+/* Header Section */
+.management-header {
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  /* Make the management header sticky as well, consistent with the main layout */
+  position: fixed;
+  top: 64px; /* Position it right below the main laptop-header */
+  left: 250px; /* Aligns with main-content's margin-left from LaptopDashboardLayout.css */
+  right: 0;
+  z-index: 99; /* Slightly lower than main header, higher than content */
+  width: calc(100% - 250px); /* Adjust width considering the sidebar */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow for separation */
+}
+
+.management-header-content {
+  max-width: 80rem; /* Keeps content within a readable width on larger screens */
+  margin: 0 auto; /* Centers the content horizontally on larger screens */
+  padding: 0 1rem; /* Default padding for all screens */
+}
+
+.management-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem; /* 64px */
+}
+
+.management-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.management-logo {
+  width: 2rem;
+  height: 2rem;
+  color: #000000;
+}
+
+.management-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+  /* Ensure title doesn't wrap awkwardly on small screens */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Primary Button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid #000000;
+  color: #000000;
+  background-color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.btn-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+}
+
+/* Main Content */
+.management-content {
+  max-width: 80rem;
+  margin: 0 auto;
+  /* Add padding-top equal to the management-header height to prevent content from being hidden */
+  padding-top: 4rem; /* Height of .management-header (64px) */
+  padding-left: 1rem; /* Ensure consistent horizontal padding */
+  padding-right: 1rem; /* Ensure consistent horizontal padding */
+}
+
+/* Filters Section */
+.filters-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search-input-wrapper {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  width: 1rem;
+  height: 1rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  padding-left: 2.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+.form-select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+/* Employee Grid */
+.employee-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.employee-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.employee-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.employee-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.employee-info h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #000000;
+  margin: 0 0 0.25rem 0;
+}
+
+.employee-info p {
+  color: #6b7280;
+  margin: 0;
+}
+
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-active {
+  background-color: #f3f4f6;
+  color: #000000;
+}
+
+.status-inactive {
+  background-color: #1f2937;
+  color: #ffffff;
+}
+
+.system-role-badge { /* Added style for system role badge */
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: #e0f2f7; /* Light blue */
+  color: #007bff; /* Blue text */
+  margin-right: 5px;
+}
+
+.employee-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.detail-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+}
+
+.employee-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-secondary {
+  flex: 1;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  border: 1px solid #d1d5db;
+  background-color: transparent;
+  color: #374151;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #f9fafb;
+}
+
+.btn-icon-sm {
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-right: 0.25rem;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.empty-state-icon {
+  width: 3rem;
+  height: 3rem;
+  color: #9ca3af;
+  margin: 0 auto 1rem auto;
+}
+
+.empty-state-text {
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Loading and Error States */
+.loading-container, .error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+  width: 2rem;
+  height: 2rem;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000; /* Ensure modal is on top of everything */
+}
+
+.modal-content {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  max-width: 42rem;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex; /* Make it a flex container */
+  flex-direction: column; /* Stack children vertically */
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+}
+
+.btn-close {
+  color: #9ca3af;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.btn-close:hover {
+  color: #000000;
+}
+
+.close-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  flex-grow: 1; /* Allow body to grow and take available space */
+  overflow-y: auto; /* Enable scrolling for the body if content overflows */
+}
+
+/* Employee Detail Modal */
+.employee-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.employee-detail-info h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 0.25rem 0;
+}
+
+.employee-detail-info p {
+  color: #6b7280;
+  margin: 0;
+}
+
+.employee-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.detail-section.full-width { /* For permission section */
+  grid-column: 1 / -1; /* Span full width in a grid */
+}
+
+.permission-category {
+  margin-top: 1rem;
+}
+
+.permission-category h5 {
+  font-size: 1rem;
+  color: #000000;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.permission-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid for permissions */
+  gap: 0.5rem;
+}
+
+.permission-list li {
+  font-size: 0.875rem;
+  padding: 0.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.permission-active {
+  color: #10b981; /* Green for active */
+}
+
+.permission-inactive {
+  color: #ef4444; /* Red for inactive */
+  opacity: 0.7;
+}
+
+
+.detail-row {
+  display: flex;
+  align-items: center;
+}
+
+.detail-row-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.75rem;
+  color: #9ca3af;
+}
+
+.detail-row-content p:first-child {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0 0 0.25rem 0;
+}
+
+.detail-row-content p:last-child {
+  color: #000000;
+  margin: 0;
+}
+
+.modal-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-outline {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  color: #000000;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-outline:hover {
+  background-color: #f9fafb;
+}
+
+.btn-danger {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #dc3545; /* Red color for danger actions */
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-danger:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+.btn-success { /* Added style for activate button */
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #28a745; /* Green color for success actions */
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-success:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Form Styles */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+textarea.form-input {
+  resize: vertical; /* Allow vertical resizing of textarea */
+  min-height: 80px; /* Minimum height for textarea */
+}
+
+.permissions-section {
+  margin-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1.5rem;
+}
+
+.permissions-section h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.permission-category-form {
+  margin-bottom: 1rem;
+}
+
+.permission-category-form h5 {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.75rem;
+  background-color: #f9fafb;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid #eee;
+}
+
+.permission-checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0.75rem;
+}
+
+.form-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) { /* Targeting typical mobile screens */
+  .employee-management {
+    /* For mobile, the main dashboard header might take full width, so adjust padding-top */
+    /* Assuming LaptopDashboardLayout.css's .laptop-header is 64px and also fixed on mobile */
+    padding-top: 64px; /* Still accounts for main fixed header */
+  }
+
+  .management-header {
+    left: 0; /* Align to the left edge of the screen */
+    width: 100%; /* Take full width */
+    top: 64px; /* Position directly below the main dashboard header */
+    padding: 0 1rem; /* Add some horizontal padding for content */
+    box-sizing: border-box; /* Ensure padding is included in width */
+  }
+
+  .management-header-content {
+    /* On mobile, remove max-width and margin: auto to allow content to spread */
+    max-width: none;
+    margin: 0;
+    padding: 0; /* Resetting padding as it's now on .management-header directly */
+  }
+
+  .management-header-inner {
+    /* Ensure content within header is visible and spaced */
+    padding: 0 0.5rem; /* Small internal padding */
+    height: 4rem; /* Maintain height */
+  }
+
+  .management-title {
+    font-size: 1.25rem; /* Slightly smaller title for mobile */
+    /* If the title is still too long, consider further truncation or responsive font sizing */
+  }
+
+  .btn-primary {
+    padding: 0.4rem 0.8rem; /* Slightly smaller button for mobile */
+    font-size: 0.8rem;
+  }
+
+  .management-content {
+    /* Adjust padding for mobile to account for fixed management-header */
+    padding-top: calc(4rem + 1rem); /* management-header height + a little extra space */
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .filters-section {
+    grid-template-columns: 1fr; /* Stack filters vertically on mobile */
+  }
+
+  .employee-grid {
+    grid-template-columns: 1fr; /* Stack employee cards vertically on mobile */
+  }
+
+  .employee-detail-grid {
+    grid-template-columns: 1fr; /* Stack detail sections vertically */
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr; /* Stack form fields vertically */
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  /* For small tablets or landscape phones, might use slightly more padding */
+  .management-header-content,
+  .management-content {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+
+@media (min-width: 768px) { /* Tablet and larger */
+  .filters-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .employee-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .employee-detail-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .management-header {
+    left: 220px; /* Adjust for smaller sidebar on medium screens (from LaptopDashboardLayout) */
+    width: calc(100% - 220px);
+  }
+}
+
+@media (min-width: 1024px) { /* Desktop */
+  .employee-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .management-header-content,
+  .management-content {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .management-header {
+    left: 250px; /* Original sidebar width (from LaptopDashboardLayout) */
+    width: calc(100% - 250px);
+  }
+}
+
+/* Focus styles for accessibility */
+.btn-primary:focus,
+.btn-secondary:focus,
+.btn-outline:focus,
+.btn-danger:focus,
+.btn-success:focus, /* Added success button focus */
+.form-input:focus,
+.form-select:focus {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Smooth animations */
+.employee-card,
+.btn-primary,
+.btn-secondary,
+.btn-outline,
+.btn-danger,
+.btn-success { /* Added success button to animation */
+  transition: all 0.2s ease;
+}

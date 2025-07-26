@@ -1,0 +1,265 @@
+/* WelcomeScreen.css */
+
+.welcome-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Subtle background pattern */
+.welcome-screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.01) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.welcome-screen > * {
+  position: relative;
+  z-index: 2;
+}
+
+.welcome-screen h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: fadeInUp 1s ease-out;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.welcome-screen button {
+  background: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 16px;
+  padding: 1.25rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000000;
+  cursor: pointer;
+  margin: 0.75rem;
+  min-width: 280px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 1s ease-out;
+  animation-fill-mode: both;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-screen button:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.welcome-screen button:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Hover effects */
+.welcome-screen button:hover {
+  background: #000000;
+  color: #ffffff;
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-screen button:active {
+  transform: translateY(-2px) scale(1.01);
+  transition-duration: 0.1s;
+}
+
+/* Ripple effect */
+.welcome-screen button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.welcome-screen button:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile-first responsive design */
+@media screen and (max-width: 480px) {
+  .welcome-screen {
+    padding: 1.5rem;
+  }
+  
+  .welcome-screen h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  
+  .welcome-screen button {
+    min-width: 250px;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    margin: 0.5rem;
+  }
+}
+
+/* Small tablets */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .welcome-screen h2 {
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .welcome-screen button {
+    min-width: 260px;
+    padding: 1.1rem 2.2rem;
+    font-size: 1.05rem;
+  }
+}
+
+/* Large tablets and small laptops */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .welcome-screen h2 {
+    font-size: 2.8rem;
+    margin-bottom: 3.5rem;
+  }
+  
+  .welcome-screen button {
+    min-width: 300px;
+    padding: 1.3rem 2.6rem;
+    font-size: 1.15rem;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1025px) {
+  .welcome-screen h2 {
+    font-size: 3rem;
+    margin-bottom: 4rem;
+  }
+  
+  .welcome-screen button {
+    min-width: 320px;
+    padding: 1.4rem 2.8rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* PWA specific adjustments */
+@media screen and (max-height: 600px) {
+  .welcome-screen {
+    padding: 1rem;
+  }
+  
+  .welcome-screen h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .welcome-screen button {
+    min-width: 200px;
+    padding: 0.8rem 1.6rem;
+    font-size: 0.95rem;
+    margin: 0.4rem;
+  }
+}
+
+/* Handle very wide screens */
+@media screen and (min-width: 1920px) {
+  .welcome-screen h2 {
+    font-size: 3.5rem;
+    margin-bottom: 5rem;
+  }
+  
+  .welcome-screen button {
+    min-width: 350px;
+    padding: 1.6rem 3.2rem;
+    font-size: 1.3rem;
+  }
+}
+
+/* Ensure proper display on iOS devices */
+@supports (-webkit-touch-callout: none) {
+  .welcome-screen {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .welcome-screen button {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .welcome-screen {
+    background-color: #000000;
+  }
+  
+  .welcome-screen h2 {
+    color: #ffffff;
+  }
+  
+  .welcome-screen button {
+    background: #000000;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+  }
+  
+  .welcome-screen button:hover {
+    background: #ffffff;
+    color: #000000;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .welcome-screen h2,
+  .welcome-screen button {
+    animation: none;
+  }
+  
+  .welcome-screen button {
+    transition: none;
+  }
+  
+  .welcome-screen button:hover {
+    transform: none;
+  }
+}

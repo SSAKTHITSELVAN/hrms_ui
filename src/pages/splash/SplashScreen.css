@@ -1,0 +1,104 @@
+/* SplashScreen.css */
+
+.splash-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.splash-logo {
+  max-width: 200px;
+  max-height: 200px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  animation: fadeInScale 1.5s ease-in-out;
+}
+
+/* Fade in and scale animation */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile-first responsive design */
+@media screen and (max-width: 480px) {
+  .splash-logo {
+    max-width: 150px;
+    max-height: 150px;
+  }
+}
+
+/* Small tablets */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .splash-logo {
+    max-width: 180px;
+    max-height: 180px;
+  }
+}
+
+/* Large tablets and small laptops */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .splash-logo {
+    max-width: 220px;
+    max-height: 220px;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1025px) {
+  .splash-logo {
+    max-width: 250px;
+    max-height: 250px;
+  }
+}
+
+/* PWA specific adjustments */
+@media screen and (max-height: 600px) {
+  .splash-logo {
+    max-width: 120px;
+    max-height: 120px;
+  }
+}
+
+/* Handle very wide screens */
+@media screen and (min-width: 1920px) {
+  .splash-logo {
+    max-width: 300px;
+    max-height: 300px;
+  }
+}
+
+/* Ensure proper display on iOS devices */
+@supports (-webkit-touch-callout: none) {
+  .splash-container {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .splash-logo {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
