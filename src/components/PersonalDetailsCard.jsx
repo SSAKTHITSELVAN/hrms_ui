@@ -54,7 +54,7 @@ const PersonalDetailsCard = () => {
     lastName: '',
     email: '',
     phone: '',
-    employeeId: '',
+    // employeeId: '',
     gender: '',
     dateOfBirth: '',
     maritalStatus: '',
@@ -90,7 +90,7 @@ const PersonalDetailsCard = () => {
           lastName: data.last_name || '',
           email: data.personal_email || '',
           phone: data.personal_contact_number || '',
-          employeeId: data.employee_id || '',
+          // employeeId: data.employee_id || '',
           gender: data.gender || '',
           dateOfBirth: data.date_of_birth || '',
           maritalStatus: data.marital_status || '',
@@ -404,7 +404,7 @@ const PersonalDetailsCard = () => {
                   <DisplayField label="Last Name" value={personalData.lastName} />
                   <DisplayField label="Email" value={personalData.email} />
                   <DisplayField label="Phone" value={personalData.phone} />
-                  <DisplayField label="Employee ID" value={personalData.employeeId} />
+                  {/* <DisplayField label="Employee ID" value={personalData.employeeId} /> */}
                   <DisplayField label="Gender" value={personalData.gender} />
                   <DisplayField label="Date of Birth" value={personalData.dateOfBirth} />
                   <DisplayField label="Marital Status" value={personalData.maritalStatus} />

@@ -36,6 +36,13 @@
   align-items: center;
 }
 
+.company-logo {
+  height: 50px; /* adjust size */
+  width: auto;
+  object-fit: contain;
+  margin-right: 20px;
+}
+
 .company-name {
   font-size: 1.25rem;
   font-weight: 600;

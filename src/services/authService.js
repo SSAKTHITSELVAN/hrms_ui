@@ -14,7 +14,7 @@ export const loginUser = async (credentials) => {
     localStorage.setItem('token', access_token);
 
     // Step 3: Fetch role name from backend using role_id
-    const roleResponse = await axios.get(`/api/v1/roles/my/company`, {
+    const roleResponse = await axios.get(`/api/v1/roles/my`, {
       headers: {
         Authorization: `Bearer ${access_token}`,
       },

@@ -7,9 +7,16 @@
   position: relative;
 }
 
+/* Add this new class for the overall centered wrapper on laptop */
+.dashboard-center-wrapper {
+  width: 100%; /* Default to full width for mobile/tablet */
+  position: relative; /* Essential for positioning fixed header/sidebar correctly inside it */
+}
+
 /* Mobile Header */
 .mobile-header {
-  position: fixed;
+  /* Change from fixed to absolute if it's inside a max-width container that is centered */
+  position: absolute; /* Changed from fixed */
   top: 0;
   left: 0;
   right: 0;
@@ -80,6 +87,12 @@
   flex: 1;
 }
 
+.company-logo { /* Added styles for company logo */
+  height: 40px; /* Adjust as needed */
+  width: auto;
+  max-width: 150px; /* Ensures logo doesn't get too big */
+}
+
 .company-name {
   font-size: 1.1rem;
   font-weight: 600;
@@ -103,15 +116,15 @@
 
 /* Mobile Overlay */
 .mobile-overlay {
-  position: fixed;
+  position: fixed; /* Keep fixed for full screen overlay */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 998;
-  opacity: 0;
-  visibility: hidden;
+  opacity: 0; /* Default hidden state */
+  visibility: hidden; /* Default hidden state */
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
@@ -122,8 +135,9 @@
 
 /* Mobile Sidebar */
 .mobile-sidebar {
-  position: fixed;
-  top: 60px;
+  /* Change from fixed to absolute if it's inside a max-width container that is centered */
+  position: absolute; /* Changed from fixed */
+  top: 60px; /* Below the header */
   left: 0;
   bottom: 0;
   width: 280px;
@@ -229,7 +243,43 @@
   margin: 0 auto;
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for larger screens (laptops/desktops) */
+@media (min-width: 769px) { /* Applies to screens wider than your mobile breakpoint */
+  /* Center the entire dashboard content for laptop view */
+  .dashboard-center-wrapper {
+    max-width: 768px; /* Set your desired fixed width for the "mobile view" on laptop */
+    margin: 0 auto; /* Center the wrapper */
+    /* Add a background color to this wrapper if you want its background to be distinct from the white space */
+    background-color: #ffffff; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: add a subtle shadow */
+    height: 100vh; /* Make it take full height within the centered wrapper */
+    overflow: hidden; /* Prevent content from flowing outside this wrapper */
+  }
+
+  .mobile-sidebar {
+    /* If the wrapper is centered, these positions will be relative to the wrapper */
+    position: absolute; /* Stay absolute to the centered wrapper */
+    top: 60px;
+    left: 0;
+    bottom: 0;
+  }
+
+  .mobile-header {
+    /* If the wrapper is centered, these positions will be relative to the wrapper */
+    position: absolute; /* Stay absolute to the centered wrapper */
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  /* No need for max-width/margin-auto on .main-content or .content-wrapper here,
+     as the .dashboard-center-wrapper is now controlling the overall width and centering.
+     Keep internal padding as desired. */
+  .main-content {
+    padding: 1rem; /* Adjust padding within the fixed-width mobile-like container */
+  }
+}
+
 @media (max-width: 320px) {
   .mobile-sidebar {
     width: 260px;
