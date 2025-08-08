@@ -327,25 +327,26 @@ const PersonalDetailsForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setIsLoading(true);
+  e.preventDefault();
+  setError("");
+  setIsLoading(true);
 
-    try {
-      await createPersonalDetails(formData);
+  try {
+    const response = await createPersonalDetails(formData);
 
-      // Optional: store employee ID for updates
-      const employeeId = response.data?.items?.[0]?.employee_personal_details_id;
-      console.log("Employee ID:", employeeId);
-      
-      // After successful creation, navigate to dashboard
-      navigate("/dashboard");
-    } catch (err) {
-      setError(err.message || "Failed to save personal details");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    // Optional: store employee ID for updates
+    const employeeId = response.data?.items?.[0]?.employee_personal_details_id;
+    console.log("Employee ID:", employeeId);
+
+    // After successful creation, navigate to dashboard
+    navigate("/dashboard");
+  } catch (err) {
+    setError(err.message || "Failed to save personal details");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <div className="personal-details-container">

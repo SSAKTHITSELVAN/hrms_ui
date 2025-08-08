@@ -20,4 +20,9 @@ export default defineConfig({
       }
     })
   ],
+  server: {
+    host: '0.0.0.0', // Bind to all interfaces including your IP
+    port: 5173,      // Optional, set explicitly
+    strictPort: true // Ensures it doesn’t auto-switch if busy
+  }
 })

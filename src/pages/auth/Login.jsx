@@ -75,17 +75,297 @@
 
 // export default Login;
 
-// src/pages/auth/Login.jsx
-import { useState } from 'react';
+// // src/pages/auth/Login.jsx
+// import { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { loginUser } from '../../services/authService';
+// import './Login.css'; // Import the CSS file
+
+// const Login = () => {
+//   const [formData, setFormData] = useState({ employee_code: '', password: '' });
+//   const [error, setError] = useState('');
+//   const [isLoading, setIsLoading] = useState(false);
+//   const navigate = useNavigate();
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setError('');
+//     setIsLoading(true);
+    
+//     try {
+//       await loginUser(formData);
+      
+//       // Check if user has personal details
+//       const hasPersonalDetails = localStorage.getItem('has_personal_details');
+      
+//       if (hasPersonalDetails === 'false') {
+//         // First time user - redirect to personal details form
+//         navigate('/personal-details');
+//       } else {
+//         // Existing user with complete profile - go to dashboard
+//         navigate('/dashboard');
+//       }
+//     } catch (err) {
+//       // Display the specific error message from authService
+//       setError(err.message || 'An unexpected error occurred. Please try again.');
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   return (
+//     <div className="login-container">
+//       <div className="login-card">
+//         <h2 className="login-title">Login</h2>
+        
+//         {error && (
+//           <div className="error-message">
+//             {error}
+//           </div>
+//         )}
+        
+//         <form onSubmit={handleSubmit} className="login-form">
+//           <div className="form-group">
+//             <label htmlFor="employee_code" className="form-label">
+//               Employee Code
+//             </label>
+//             <input
+//               id="employee_code"
+//               name="employee_code"
+//               type="text"
+//               placeholder="Enter your employee code"
+//               value={formData.employee_code}
+//               onChange={handleChange}
+//               className="form-input"
+//               required
+//               autoComplete="username"
+//             />
+//           </div>
+          
+//           <div className="form-group">
+//             <label htmlFor="password" className="form-label">
+//               Password
+//             </label>
+//             <input
+//               id="password"
+//               type="password"
+//               name="password"
+//               placeholder="Enter your password"
+//               value={formData.password}
+//               onChange={handleChange}
+//               className="form-input"
+//               required
+//               autoComplete="current-password"
+//             />
+//           </div>
+          
+//           <button 
+//             type="submit" 
+//             className="login-button"
+//             disabled={isLoading}
+//           >
+//             {isLoading ? 'Signing In...' : 'Sign In'}
+//           </button>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Login;
+
+
+// import { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { loginUser } from '../../services/authService';
+// import './Login.css';
+
+// const Login = () => {
+//   const [formData, setFormData] = useState({ employee_code: '', password: '' });
+//   const dispatch = useDispatch();
+//   const navigate = useNavigate();
+
+//   const { isLoading, error } = useSelector((state) => state.auth);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     const result = await loginUser(dispatch, formData);
+
+//     if (!result) return; // login failed (Redux handles error)
+    
+//     const { hasPersonalDetails } = result;
+//     navigate(hasPersonalDetails ? '/dashboard' : '/personal-details');
+//   };
+
+//   return (
+//     <div className="login-container">
+//       <div className="login-card">
+//         <h2 className="login-title">Login</h2>
+
+//         {error && <div className="error-message">{error}</div>}
+
+//         <form onSubmit={handleSubmit} className="login-form">
+//           <div className="form-group">
+//             <label htmlFor="employee_code" className="form-label">Employee Code</label>
+//             <input
+//               id="employee_code"
+//               name="employee_code"
+//               type="text"
+//               placeholder="Enter your employee code"
+//               value={formData.employee_code}
+//               onChange={handleChange}
+//               className="form-input"
+//               required
+//               autoComplete="username"
+//             />
+//           </div>
+
+//           <div className="form-group">
+//             <label htmlFor="password" className="form-label">Password</label>
+//             <input
+//               id="password"
+//               type="password"
+//               name="password"
+//               placeholder="Enter your password"
+//               value={formData.password}
+//               onChange={handleChange}
+//               className="form-input"
+//               required
+//               autoComplete="current-password"
+//             />
+//           </div>
+
+//           <button type="submit" className="login-button" disabled={isLoading}>
+//             {isLoading ? 'Signing In...' : 'Sign In'}
+//           </button>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Login;
+
+
+
+// import { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { loginUser } from '../../services/authService';
+// import './Login.css';
+
+// const Login = () => {
+//   const [formData, setFormData] = useState({ employee_code: '', password: '' });
+//   const dispatch = useDispatch();
+//   const navigate = useNavigate();
+
+//   const { isLoading, error, token, hasPersonalDetails } = useSelector((state) => state.auth);
+
+//   // 🔹 Auto redirect if already logged in
+//   useEffect(() => {
+//     if (token) {
+//       navigate(hasPersonalDetails ? '/dashboard' : '/personal-details', { replace: true });
+//     }
+//   }, [token, hasPersonalDetails, navigate]);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     const result = await loginUser(dispatch, formData);
+
+//     if (!result) return; // login failed (Redux handles error)
+    
+//     const { hasPersonalDetails } = result;
+//     navigate(hasPersonalDetails ? '/dashboard' : '/personal-details');
+//   };
+
+//   return (
+//     <div className="login-container">
+//       <div className="login-card">
+//         <h2 className="login-title">Login</h2>
+
+//         {error && <div className="error-message">{error}</div>}
+
+//         <form onSubmit={handleSubmit} className="login-form">
+//           <div className="form-group">
+//             <label htmlFor="employee_code" className="form-label">Employee Code</label>
+//             <input
+//               id="employee_code"
+//               name="employee_code"
+//               type="text"
+//               placeholder="Enter your employee code"
+//               value={formData.employee_code}
+//               onChange={handleChange}
+//               className="form-input"
+//               required
+//               autoComplete="username"
+//             />
+//           </div>
+
+//           <div className="form-group">
+//             <label htmlFor="password" className="form-label">Password</label>
+//             <input
+//               id="password"
+//               type="password"
+//               name="password"
+//               placeholder="Enter your password"
+//               value={formData.password}
+//               onChange={handleChange}
+//               className="form-input"
+//               required
+//               autoComplete="current-password"
+//             />
+//           </div>
+
+//           <button type="submit" className="login-button" disabled={isLoading}>
+//             {isLoading ? 'Signing In...' : 'Sign In'}
+//           </button>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Login;
+
+
+
+
+
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../services/authService';
-import './Login.css'; // Import the CSS file
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../store/thunks/authThunk';
+import './Login.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({ employee_code: '', password: '' });
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { loading, error, token, hasPersonalDetails } = useSelector((state) => state.auth);
+
+  // Auto redirect if already logged in
+  useEffect(() => {
+    if (token) {
+      navigate(hasPersonalDetails ? '/dashboard' : '/personal-details', { replace: true });
+    }
+  }, [token, hasPersonalDetails, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -94,27 +374,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setIsLoading(true);
-    
-    try {
-      await loginUser(formData);
-      
-      // Check if user has personal details
-      const hasPersonalDetails = localStorage.getItem('has_personal_details');
-      
-      if (hasPersonalDetails === 'false') {
-        // First time user - redirect to personal details form
-        navigate('/personal-details');
-      } else {
-        // Existing user with complete profile - go to dashboard
-        navigate('/dashboard');
-      }
-    } catch (err) {
-      // Display the specific error message from authService
-      setError(err.message || 'An unexpected error occurred. Please try again.');
-    } finally {
-      setIsLoading(false);
+    const result = await dispatch(loginUser(formData));
+
+    if (result?.success) {
+      navigate(result.hasPersonalDetails ? '/dashboard' : '/personal-details');
     }
   };
 
@@ -122,18 +385,12 @@ const Login = () => {
     <div className="login-container">
       <div className="login-card">
         <h2 className="login-title">Login</h2>
-        
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
-        )}
-        
+
+        {error && <div className="error-message">{error}</div>}
+
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
-            <label htmlFor="employee_code" className="form-label">
-              Employee Code
-            </label>
+            <label htmlFor="employee_code" className="form-label">Employee Code</label>
             <input
               id="employee_code"
               name="employee_code"
@@ -146,11 +403,9 @@ const Login = () => {
               autoComplete="username"
             />
           </div>
-          
+
           <div className="form-group">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
+            <label htmlFor="password" className="form-label">Password</label>
             <input
               id="password"
               type="password"
@@ -163,13 +418,9 @@ const Login = () => {
               autoComplete="current-password"
             />
           </div>
-          
-          <button 
-            type="submit" 
-            className="login-button"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Signing In...' : 'Sign In'}
+
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
       </div>
