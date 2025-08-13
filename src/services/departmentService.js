@@ -12,7 +12,10 @@ import {
 export const handleGetAllDepartments = async (skip = 0, limit = 100) => {
     try {
         const response = await getAllDepartments(skip, limit);
-        return response.data?.items || response.data || [];
+        // console.log("FULL API response:", response);
+        // console.log("response.data:", response.data);
+        // return response.data?.items || response.data || [];
+        return response || [];
     } catch (err) {
         console.error('Error fetching departments:', err);
         throw err.response?.data || { message: 'Failed to retrieve departments' };
@@ -22,7 +25,9 @@ export const handleGetAllDepartments = async (skip = 0, limit = 100) => {
 export const handleGetDepartmentById = async (departmentId) => {
     try {
         const response = await getDepartmentById(departmentId);
-        return response.data?.data || response.data;
+        // ✅ Fixed: The API already returns response.data, so we just return response
+        // Since your API response structure shows the department data directly
+        return response || null;
     } catch (err) {
         console.error('Error fetching department details:', err);
         throw err.response?.data || { message: 'Failed to retrieve department details' };

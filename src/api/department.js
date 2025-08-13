@@ -5,7 +5,7 @@ export const getAllDepartments = async (skip = 0, limit = 100) => {
     const access_token = localStorage.getItem('token');
 
     try {
-        const response = await axios.get(`/api/v1/departments/?skip=${skip}&limit=${limit}`, {
+       const response = await axios.get(`/departments/?skip=${skip}&limit=${limit}`, {
             headers: {
                 Authorization: `Bearer ${access_token}`,
             },
@@ -21,7 +21,7 @@ export const getDepartmentById = async (departmentId) => {
     const access_token = localStorage.getItem('token');
 
     try {
-        const response = await axios.get(`/api/v1/departments/${departmentId}`, {
+        const response = await axios.get(`/departments/${departmentId}`, {
             headers: {
                 Authorization: `Bearer ${access_token}`,
             },
@@ -37,7 +37,7 @@ export const createDepartment = async (departmentData) => {
     const access_token = localStorage.getItem('token');
 
     try {
-        const response = await axios.post('/api/v1/departments/', departmentData, {
+        const response = await axios.post('/departments/', departmentData, {
             headers: {
                 Authorization: `Bearer ${access_token}`,
                 'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export const updateDepartment = async (departmentId, departmentData) => {
     const access_token = localStorage.getItem('token');
 
     try {
-        const response = await axios.put(`/api/v1/departments/${departmentId}`, departmentData, {
+        const response = await axios.put(`/departments/${departmentId}`, departmentData, {
             headers: {
                 Authorization: `Bearer ${access_token}`,
                 'Content-Type': 'application/json',

@@ -1,21 +1,28 @@
 // src/api/role.js
 import axios from './axiosInstance';
 
-export const getAllRoles = async (skip = 0, limit = 100, active_only = false) => {
-    const access_token = localStorage.getItem('token');
+export const getAllRoles = async ( skip = 0, limit = 100, active_only = false) => {
+  const access_token = localStorage.getItem('token');
 
-    try {
-        const response = await axios.get(`/api/v1/roles/?skip=${skip}&limit=${limit}&active_only=${active_only}`, {
-            headers: {
-                Authorization: `Bearer ${access_token}`,
-            },
-        });
+  try {
+    const response = await axios.get('/api/v1/roles/', {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+      params: {
+        // company_id: companyId,
+        skip,
+        limit,
+        active_only,
+      },
+    });
 
-        return response.data;
-    } catch (err) {
-        throw err.response || { message: 'Failed to retrieve roles' };
-    }
+    return response.data;
+  } catch (err) {
+    throw err.response || { message: 'Failed to retrieve roles' };
+  }
 };
+
 
 export const getRoleById = async (roleId) => {
     const access_token = localStorage.getItem('token');

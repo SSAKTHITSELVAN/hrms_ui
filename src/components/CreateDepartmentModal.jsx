@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
 import { Plus, X, Loader } from 'lucide-react';
 import { handleCreateDepartment } from '../services/departmentService';
 import { handleGetAllRoles } from '../services/roleService'; // Import the service to fetch roles
 
 const CreateDepartmentModal = ({ isOpen, onClose, onCreateSuccess, onError }) => {
+  const roleData = useSelector((state) => state.auth?.roleData);
   // Form State - Expanded to match API payload requirements
   const initialFormState = {
     name: '',
@@ -94,27 +96,116 @@ const CreateDepartmentModal = ({ isOpen, onClose, onCreateSuccess, onError }) =>
     setFormState(initialFormState); // Reset form state when closing
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!formState.name.trim()) {
-      onError?.('Department name is required');
-      return;
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (!formState.name.trim()) {
+  //     onError?.('Department name is required');
+  //     return;
+  //   }
+
+  //   setLoading(true);
+  //   try {
+  //     // The departmentService's transformToApiFormat should handle converting
+  //     // formState.defaultEmployeeRoleId to default_employee_role_id
+  //     await handleCreateDepartment(formState);
+  //     onCreateSuccess?.();
+  //     handleClose(); // Close modal and reset form
+  //   } catch (error) {
+  //     console.error('Error creating department:', error);
+  //     onError?.(error.message || 'Failed to create department');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+//   const handleSubmit = async (e) => {
+//   e.preventDefault();
+
+//   // ✅ Safety check so formState is never undefined
+//   if (!formState || !formState.name?.trim()) {
+//     onError?.('Department name is required');
+//     return;
+//   }
+
+//   // ✅ Get company_id from Redux or localStorage
+//   const company_id =
+//     roleData?.company_id ||
+//     JSON.parse(localStorage.getItem('roleData'))?.company_id;
+
+//   if (!company_id) {
+//     onError?.('Company ID is missing. Please log in again.');
+//     return;
+//   }
+
+//   // ✅ Prepare payload for API
+//   const payload = {
+//     ...formState,
+//     company_id, // Inject correct company_id
+//   };
+
+//   console.log('📤 Sending department payload to backend:', payload);
+
+//   setLoading(true);
+//   try {
+//     await handleCreateDepartment(payload); // ✅ send full payload
+//     onCreateSuccess?.();
+//     handleClose();
+//   } catch (error) {
+//     console.error('❌ Error creating department:', error);
+//     onError?.(error.message || 'Failed to create department');
+//   } finally {
+//     setLoading(false);
+//   }
+// };
+
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!formState || !formState.name?.trim()) {
+    onError?.('Department name is required');
+    return;
+  }
+
+  const company_id =
+    roleData?.company_id ||
+    JSON.parse(localStorage.getItem('roleData'))?.company_id;
+
+  if (!company_id) {
+    onError?.('Company ID is missing. Please log in again.');
+    return;
+  }
+
+  const payload = {
+    ...formState,
+    company_id,
+  };
+
+  console.log('📤 Sending department payload to backend:', payload);
+
+  setLoading(true);
+  try {
+    // 🔹 Capture the result
+    const newDept = await handleCreateDepartment(payload);
+
+    if (!newDept || !newDept.department_id) {
+      throw new Error('Invalid response from server: Missing department_id');
     }
 
-    setLoading(true);
-    try {
-      // The departmentService's transformToApiFormat should handle converting
-      // formState.defaultEmployeeRoleId to default_employee_role_id
-      await handleCreateDepartment(formState);
-      onCreateSuccess?.();
-      handleClose(); // Close modal and reset form
-    } catch (error) {
-      console.error('Error creating department:', error);
-      onError?.(error.message || 'Failed to create department');
-    } finally {
-      setLoading(false);
-    }
-  };
+    console.log('✅ Department created:', newDept.department_id);
+
+    // Pass it to your success handler
+    onCreateSuccess?.(newDept);
+
+    handleClose();
+  } catch (error) {
+    console.error('❌ Error creating department:', error);
+    onError?.(error.message || 'Failed to create department');
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   if (!isOpen) return null;
 

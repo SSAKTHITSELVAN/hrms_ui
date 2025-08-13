@@ -4,7 +4,10 @@ import { getAllRoles, getRoleById, createRole, updateRole, updateRoleStatus, del
 export const handleGetAllRoles = async (skip = 0, limit = 100, active_only = false) => {
     try {
         const response = await getAllRoles(skip, limit, active_only);
-        return response.data?.items || response.data || [];
+        // console.log("FULL API response:", response);
+        // console.log("response.data:", response.data);
+        // return response.data?.items || response.data || [];
+        return response || [];
     } catch (err) {
         console.error('Error fetching roles:', err);
         throw err.response?.data || { message: 'Failed to retrieve roles' };

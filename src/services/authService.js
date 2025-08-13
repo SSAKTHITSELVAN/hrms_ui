@@ -142,27 +142,81 @@
 
 
 
+// // src/services/authService.js
+// import axios from '../api/axiosInstance';
+
+// export const loginUserApi = async (credentials) => {
+//   // Step 1: Login
+//   const response = await axios.post('/api/v1/login', credentials);
+//   const { access_token } = response.data.data;
+
+//   // Step 2: Fetch role data
+//   const roleResponse = await axios.get('/api/v1/roles/my', {
+//     headers: { Authorization: `Bearer ${access_token}` },
+//   });
+
+//   // Step 3: Check if personal details exist
+//   const checkResponse = await axios.get('/api/v1/personal_details/employee/check', {
+//     headers: { Authorization: `Bearer ${access_token}` },
+//   });
+
+//   return {
+//     token: access_token,
+//     roleData: roleResponse.data,          // full role object with can_* keys
+//     hasPersonalDetails: checkResponse.data.data,
+//   };
+// };
+
+
+// // src/services/authService.js
+// // This file can be removed, and the loginUserApi function can be moved directly into the thunk
+// // to avoid an extra layer of abstraction. For now, let's just clean it up.
+
+// import axios from '../api/axiosInstance';
+
+// export const loginUserApi = async (credentials) => {
+//   const response = await axios.post('/api/v1/login', credentials);
+//   const { access_token } = response.data.data;
+
+//   const roleResponse = await axios.get('/api/v1/roles/my', {
+//     headers: { Authorization: `Bearer ${access_token}` },
+//   });
+//   console.log("Role Response:", roleResponse.data);
+
+//   const checkResponse = await axios.get('/api/v1/personal_details/employee/check', {
+//     headers: { Authorization: `Bearer ${access_token}` },
+//   });
+
+//   return {
+//     token: access_token,
+//     roleData: roleResponse.data.data,
+//     hasPersonalDetails: checkResponse.data.data,
+//   };
+// };
+
+
 // src/services/authService.js
+
 import axios from '../api/axiosInstance';
 
 export const loginUserApi = async (credentials) => {
-  // Step 1: Login
   const response = await axios.post('/api/v1/login', credentials);
   const { access_token } = response.data.data;
 
-  // Step 2: Fetch role data
   const roleResponse = await axios.get('/api/v1/roles/my', {
     headers: { Authorization: `Bearer ${access_token}` },
   });
+  // ✅ The backend returns a nested 'data' field. We need to access it correctly.
+  const roleData = roleResponse.data; 
+  console.log("Role Data received:", roleData);
 
-  // Step 3: Check if personal details exist
   const checkResponse = await axios.get('/api/v1/personal_details/employee/check', {
     headers: { Authorization: `Bearer ${access_token}` },
   });
 
   return {
     token: access_token,
-    roleData: roleResponse.data,          // full role object with can_* keys
+    roleData,
     hasPersonalDetails: checkResponse.data.data,
   };
 };
