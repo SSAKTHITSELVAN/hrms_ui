@@ -22,11 +22,11 @@ const Splash = () => {
   }, [navigate]);
 
   return (
-    <div className="splash-container">
+    <div className="splash-screen-container">
       <img 
         src={splashImage}
         alt="App Logo"
-        className="splash-logo"
+        className="splash-logo-animated"
       />
     </div>
   );

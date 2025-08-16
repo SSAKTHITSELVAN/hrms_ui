@@ -6,20 +6,35 @@ function WelcomeScreen() {
   const navigate = useNavigate();
 
   const handleChoice = (role) => {
-    localStorage.setItem('firstTimeRole', role); // Save choice
+    localStorage.setItem('firstTimeRole', role);
     if(role == 'company'){
-      navigate('/CreateCompany'); // Go to Create Company
+      navigate('/CreateCompany');
     }
     else{
-      navigate('/Login'); // Go to login if he is employee
+      navigate('/Login');
     }
   };
 
   return (
     <div className="welcome-screen">
-      <h2>Welcome! Choose your role:</h2>
-      <button onClick={() => handleChoice('company')}>Create a Company</button>
-      <button onClick={() => handleChoice('employee')}>Join as Employee</button>
+      <div className="content-container">
+        <h2>Welcome to Our Platform</h2>
+        <p>Choose your role to get started and unlock a new way of working.</p>
+        <div className="button-group">
+          <button 
+            className="role-button company-button" 
+            onClick={() => handleChoice('company')}
+          >
+            Create a Company
+          </button>
+          <button 
+            className="role-button employee-button" 
+            onClick={() => handleChoice('employee')}
+          >
+            Join as Employee
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

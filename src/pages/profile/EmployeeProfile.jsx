@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Edit2, Save, X, GraduationCap, Users, Calendar } from 'lucide-react';
+import { FaChevronDown, FaChevronUp, FaEdit, FaSave, FaTimes, FaGraduationCap, FaUsers, FaCalendarAlt } from 'react-icons/fa';
 import PersonalDetailsCard from '../../components/PersonalDetailsCard';
 import AddressCard from '../../components/AddressCard';
 import './EmployeeProfile.css';
@@ -93,19 +92,21 @@ const EmployeeProfile = () => {
         <button
           onClick={() => toggleCard(cardName)}
           className="card-action-btn"
+          aria-expanded={isExpanded}
+          aria-controls={`card-content-${cardName}`}
         >
           {isExpanded ? (
-            <ChevronUp className="card-action-icon" />
+            <FaChevronUp className="card-action-icon" />
           ) : (
-            <ChevronDown className="card-action-icon" />
+            <FaChevronDown className="card-action-icon" />
           )}
         </button>
         {!isEditing && (
           <button
             onClick={() => startEditing(cardName)}
-            className="card-action-btn"
+            className="card-action-btn card-action-edit"
           >
-            <Edit2 className="card-action-icon" />
+            <FaEdit className="card-action-icon" />
           </button>
         )}
       </div>
@@ -119,7 +120,7 @@ const EmployeeProfile = () => {
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="field-input"
+          className="field-input field-select"
         >
           <option value="">Select {label}</option>
           {options.map(option => (
@@ -150,13 +151,13 @@ const EmployeeProfile = () => {
     <div className="employee-card">
       <CardHeader
         title="Education"
-        icon={GraduationCap}
+        icon={FaGraduationCap}
         cardName="education"
         isExpanded={expandedCards.education}
         isEditing={editingCards.education}
       />
       {expandedCards.education && (
-        <div className="card-content">
+        <div className="card-content" id="card-content-education">
           <div className="card-grid">
             {editingCards.education ? (
               <>
@@ -197,14 +198,14 @@ const EmployeeProfile = () => {
                 onClick={() => saveChanges('education')}
                 className="save-btn"
               >
-                <Save className="btn-icon" />
+                <FaSave className="btn-icon" />
                 Save
               </button>
               <button
                 onClick={() => cancelEditing('education')}
                 className="cancel-btn"
               >
-                <X className="btn-icon" />
+                <FaTimes className="btn-icon" />
                 Cancel
               </button>
             </div>
@@ -218,13 +219,13 @@ const EmployeeProfile = () => {
     <div className="employee-card">
       <CardHeader
         title="Family Information"
-        icon={Users}
+        icon={FaUsers}
         cardName="family"
         isExpanded={expandedCards.family}
         isEditing={editingCards.family}
       />
       {expandedCards.family && (
-        <div className="card-content">
+        <div className="card-content" id="card-content-family">
           <div className="card-grid">
             {editingCards.family ? (
               <>
@@ -265,14 +266,14 @@ const EmployeeProfile = () => {
                 onClick={() => saveChanges('family')}
                 className="save-btn"
               >
-                <Save className="btn-icon" />
+                <FaSave className="btn-icon" />
                 Save
               </button>
               <button
                 onClick={() => cancelEditing('family')}
                 className="cancel-btn"
               >
-                <X className="btn-icon" />
+                <FaTimes className="btn-icon" />
                 Cancel
               </button>
             </div>
@@ -286,13 +287,13 @@ const EmployeeProfile = () => {
     <div className="employee-card">
       <CardHeader
         title="Leave Balance"
-        icon={Calendar}
+        icon={FaCalendarAlt}
         cardName="leave"
         isExpanded={expandedCards.leave}
         isEditing={editingCards.leave}
       />
       {expandedCards.leave && (
-        <div className="card-content">
+        <div className="card-content" id="card-content-leave">
           <div className="leave-section">
             {Object.entries(profileData.leave).map(([leaveType, data]) => (
               <div key={leaveType} className="leave-type">

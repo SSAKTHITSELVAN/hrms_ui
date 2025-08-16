@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Plus, Users, Eye, Edit, Trash2, Search, Filter, X, Loader, Clock, MapPin, Phone, Mail, DollarSign, Building } from 'lucide-react';
+import { FaPlus, FaUsers, FaEye, FaEdit, FaTrash, FaSearch, FaFilter, FaTimes, FaSpinner, FaClock, FaMapMarkerAlt, FaEnvelope, FaPhone, FaDollarSign, FaBuilding, FaExclamationTriangle } from 'react-icons/fa';
 import {
   handleGetAllDepartments,
   handleUpdateDepartment as updateDepartmentService,
@@ -13,7 +13,7 @@ import './DepartmentManagement.css';
 // Reusable component for loading states
 const LoadingSpinner = ({ message }) => (
   <div className="loading-container">
-    <Loader className="loading-spinner" />
+    <FaSpinner className="loading-spinner" />
     <p>{message}</p>
   </div>
 );
@@ -213,73 +213,78 @@ const DepartmentManagement = () => {
 
   // --- RENDER LOGIC ---
   if (loading) {
-    return <LoadingSpinner message="Loading Department Data..." />;
+    return (
+      <div className="dept-management-container">
+        <LoadingSpinner message="Loading Department Data..." />
+      </div>
+    );
   }
 
   return (
     <div className="dept-management-container">
       <div className="dept-management-content">
-        <div className="header">
-          <h1 className="header-title">Department Management</h1>
-          <p className="header-subtitle">Central hub for organizing and managing company departments.</p>
+        <div className="page-header">
+          <div className="page-header-text">
+            <h1 className="page-title">Department Management</h1>
+            <p className="page-subtitle">Central hub for organizing and managing company departments.</p>
+          </div>
+          <div className="page-header-actions">
+            {/* <button onClick={fetchInitialData} className="btn-outline">
+              <FaSpinner /> Refresh
+            </button> */}
+            <button onClick={handleOpenCreate} className="btn-primary">
+              <FaPlus /> Add Department
+            </button>
+          </div>
         </div>
 
         {error && (
           <div className="error-message">
             <p>{error}</p>
-            <button onClick={() => setError(null)}>&times;</button>
+            <button onClick={() => setError(null)}>
+              <FaTimes />
+            </button>
           </div>
         )}
 
-        <div className="controls-panel">
-          <div className="controls-wrapper">
-            <div className="controls-group">
-              <div className="search-container">
-                <Search className="search-icon" />
-                <input 
-                  type="text" 
-                  placeholder="Search departments..." 
-                  className="search-input" 
-                  value={searchTerm} 
-                  onChange={(e) => setSearchTerm(e.target.value)} 
-                />
-              </div>
-              <div className="filter-container">
-                <Filter className="filter-icon" />
-                <select 
-                  className="filter-select" 
-                  value={statusFilter} 
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                >
-                  <option value="All">All Status</option>
-                  <option value="Active">Active</option>
-                  <option value="Inactive">Inactive</option>
-                </select>
-              </div>
-              <div className="filter-container">
-                <Building className="filter-icon" />
-                <select 
-                  className="filter-select" 
-                  value={typeFilter} 
-                  onChange={(e) => setTypeFilter(e.target.value)}
-                >
-                  <option value="All">All Types</option>
-                  <option value="operational">Operational</option>
-                  <option value="administrative">Administrative</option>
-                  <option value="support">Support</option>
-                  <option value="technical">Technical</option>
-                </select>
-              </div>
-            </div>
-            <button onClick={handleOpenCreate} className="btn btn-primary">
-              <Plus className="btn-icon" /> Add Department
-            </button>
+        <div className="filters-section">
+          <div className="search-input-wrapper">
+            <FaSearch className="search-icon" />
+            <input 
+              type="text" 
+              placeholder="Search departments..." 
+              className="form-input" 
+              value={searchTerm} 
+              onChange={(e) => setSearchTerm(e.target.value)} 
+            />
           </div>
+          
+          <select 
+            className="form-select" 
+            value={statusFilter} 
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
+            <option value="All">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+          
+          <select 
+            className="form-select" 
+            value={typeFilter} 
+            onChange={(e) => setTypeFilter(e.target.value)}
+          >
+            <option value="All">All Types</option>
+            <option value="operational">Operational</option>
+            <option value="administrative">Administrative</option>
+            <option value="support">Support</option>
+            <option value="technical">Technical</option>
+          </select>
         </div>
 
         <div className="department-grid">
           {filteredDepartments.map(dept => (
-            <div key={dept.id} className="department-card">
+            <div key={dept.id} className="department-card" onClick={() => handleOpenDetails(dept.id)}>
               <div className="card-header">
                 <div className="card-title-group">
                   <h3 className="card-title">{dept.name}</h3>
@@ -294,37 +299,43 @@ const DepartmentManagement = () => {
               </p>
               <div className="card-details-grid">
                 <div className="card-detail-item">
-                  <Users className="detail-icon" />
-                  <span>{dept.employeeCount} / {dept.maxCapacity} Employees</span>
+                  <FaUsers className="detail-icon" />
+                  <span>{dept.employeeCount} Employees</span>
                 </div>
                 <div className="card-detail-item">
-                  <Building className="detail-icon" />
+                  <FaBuilding className="detail-icon" />
                   <span>{dept.type}</span>
+                </div>
+                <div className="card-detail-item">
+                  <FaClock className="detail-icon" />
+                  <span>{formatTime(dept.workingHoursStart)} - {formatTime(dept.workingHoursEnd)}</span>
                 </div>
                 {dept.location && (
                   <div className="card-detail-item">
-                    <MapPin className="detail-icon" />
+                    <FaMapMarkerAlt className="detail-icon" />
                     <span>{dept.location}</span>
                   </div>
                 )}
-                <div className="card-detail-item">
-                  <Clock className="detail-icon" />
-                  <span>{formatTime(dept.workingHoursStart)} - {formatTime(dept.workingHoursEnd)}</span>
-                </div>
               </div>
               <div className="card-footer">
-                <button onClick={() => handleOpenDetails(dept.id)} className="btn-view-details">
-                  <Eye className="btn-icon" /> View Details
+                <button onClick={(e) => { e.stopPropagation(); handleOpenDetails(dept.id); }} className="btn-view-details">
+                  <FaEye /> View Details
                 </button>
                 <div className="card-actions">
                   <button 
-                    onClick={() => handleOpenEdit(dept)} 
+                    onClick={(e) => { e.stopPropagation(); handleOpenEdit(dept); }} 
                     className="btn-icon-action" 
                     title="Edit"
                   >
-                    <Edit />
+                    <FaEdit />
                   </button>
-                  {/* The deactivation button is removed as per your request */}
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); handleOpenDeactivate(dept); }} 
+                    className="btn-icon-action btn-icon-danger" 
+                    title="Deactivate"
+                  >
+                    <FaTrash />
+                  </button>
                 </div>
               </div>
             </div>
@@ -333,8 +344,9 @@ const DepartmentManagement = () => {
 
         {filteredDepartments.length === 0 && (
           <div className="no-results">
-            <h3>No Departments Found</h3>
-            <p>Try adjusting your filters or add a new department.</p>
+            <FaBuilding className="no-results-icon" />
+            <h3 className="no-results-title">No Departments Found</h3>
+            <p className="no-results-text">Try adjusting your filters or add a new department.</p>
           </div>
         )}
 
@@ -370,12 +382,16 @@ const DepartmentManagement = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h2 className="modal-title">Confirm Deactivation</h2>
+                <button onClick={closeAllModals} className="btn-close-modal">
+                  <FaTimes />
+                </button>
               </div>
               <div className="modal-body">
-                <p>
+                <p className="confirm-dialog-text">
                   Are you sure you want to deactivate the{' '}
                   <strong>{departmentToDeactivate?.name}</strong> department?
                 </p>
+                <p className="confirm-dialog-text">This action cannot be undone.</p>
               </div>
               <div className="modal-footer">
                 <button 
@@ -392,12 +408,12 @@ const DepartmentManagement = () => {
                 >
                   {loadingAction ? (
                     <>
-                      <Loader className="btn-icon loading" />
+                      <FaSpinner className="btn-icon loading" />
                       Deactivating...
                     </>
                   ) : (
                     <>
-                      <Trash2 className="btn-icon" />
+                      <FaTrash className="btn-icon" />
                       Deactivate
                     </>
                   )}

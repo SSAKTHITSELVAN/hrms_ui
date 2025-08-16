@@ -1,95 +1,7 @@
-// import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { handleCreateCompany } from '../../services/companyService';
-
-// const initialState = {
-//   company_code: '',
-//   company_name: '',
-//   company_legal_name: '',
-//   company_logo_url: '',
-//   company_website_url: '',
-//   company_organization_type: 'CORPORATION',
-//   company_industry_sector: '',
-//   company_size_category: '1-10',
-//   company_contact_number: '',
-//   company_email: '',
-//   company_primary_address: '',
-//   company_billing_address: '',
-//   company_tax_id: '',
-//   company_registration_number: '',
-//   company_timezone: '',
-//   company_locale: '',
-//   company_currency: '',
-//   company_fiscal_year_start: 1,
-//   subscription_tier: 'BASIC',
-//   subscription_status: 'ACTIVE',
-//   subscription_expires_at: new Date().toISOString(),
-//   company_status: 'ACTIVE',
-//   onboarding_completed: false,
-// };
-
-// const CreateCompany = () => {
-//   const navigate = useNavigate();
-//   const [form, setForm] = useState(initialState);
-//   const [error, setError] = useState('');
-
-//   const handleChange = (e) => {
-//     const { name, value, type, checked } = e.target;
-//     setForm({
-//       ...form,
-//       [name]: type === 'checkbox' ? checked : value,
-//     });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await handleCreateCompany(form);
-//       localStorage.setItem('firstTimeRole', 'company');
-//       navigate('/login');
-//     } catch (err) {
-//       setError(err.message || 'Company creation failed');
-//     }
-//   };
-
-//   return (
-//     <div style={{ padding: '20px' }}>
-//       <h2>Create Your Company</h2>
-//       {error && <p style={{ color: 'red' }}>{error}</p>}
-//       <form onSubmit={handleSubmit}>
-//         <input name="company_code" placeholder="Company Code" value={form.company_code} onChange={handleChange} required /><br />
-//         <input name="company_name" placeholder="Company Name" value={form.company_name} onChange={handleChange} required /><br />
-//         <input name="company_legal_name" placeholder="Legal Name" value={form.company_legal_name} onChange={handleChange} required /><br />
-//         <input name="company_logo_url" placeholder="Logo URL" value={form.company_logo_url} onChange={handleChange} /><br />
-//         <input name="company_website_url" placeholder="Website" value={form.company_website_url} onChange={handleChange} /><br />
-//         <input name="company_industry_sector" placeholder="Industry Sector" value={form.company_industry_sector} onChange={handleChange} /><br />
-//         <input name="company_size_category" placeholder="Size (e.g. 1-10)" value={form.company_size_category} onChange={handleChange} /><br />
-//         <input name="company_contact_number" placeholder="Contact Number" value={form.company_contact_number} onChange={handleChange} /><br />
-//         <input name="company_email" placeholder="Email" value={form.company_email} onChange={handleChange} /><br />
-//         <input name="company_primary_address" placeholder="Primary Address" value={form.company_primary_address} onChange={handleChange} /><br />
-//         <input name="company_billing_address" placeholder="Billing Address" value={form.company_billing_address} onChange={handleChange} /><br />
-//         <input name="company_tax_id" placeholder="Tax ID" value={form.company_tax_id} onChange={handleChange} /><br />
-//         <input name="company_registration_number" placeholder="Registration Number" value={form.company_registration_number} onChange={handleChange} /><br />
-//         <input name="company_timezone" placeholder="Timezone" value={form.company_timezone} onChange={handleChange} /><br />
-//         <input name="company_locale" placeholder="Locale (e.g. en-US)" value={form.company_locale} onChange={handleChange} /><br />
-//         <input name="company_currency" placeholder="Currency (e.g. USD)" value={form.company_currency} onChange={handleChange} /><br />
-//         <input name="company_fiscal_year_start" type="number" placeholder="Fiscal Year Start (Month Number)" value={form.company_fiscal_year_start} onChange={handleChange} /><br />
-//         <label>
-//           Onboarding Completed:
-//           <input type="checkbox" name="onboarding_completed" checked={form.onboarding_completed} onChange={handleChange} />
-//         </label><br />
-//         <button type="submit">Create Company</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default CreateCompany;
-
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { handleCreateCompany } from '../../services/companyService';
+import { FaPlusCircle, FaTimes, FaSpinner } from 'react-icons/fa';
 import './CreateCompany.css';
 
 const initialState = {
@@ -148,8 +60,8 @@ const CreateCompany = () => {
   };
 
   return (
-    <div className="create-company-container">
-      <div className="form-wrapper">
+    <div className="create-company-page">
+      <div className="create-company-card">
         <div className="form-header">
           <h1 className="form-title">Create Your Company</h1>
           <p className="form-subtitle">Set up your business profile to get started</p>
@@ -485,7 +397,7 @@ const CreateCompany = () => {
               onClick={() => navigate(-1)}
               disabled={loading}
             >
-              Cancel
+              <FaTimes className="btn-icon" /> Cancel
             </button>
             <button
               type="submit"
@@ -494,11 +406,14 @@ const CreateCompany = () => {
             >
               {loading ? (
                 <>
-                  <span className="spinner"></span>
+                  <FaSpinner className="btn-icon spinner" />
                   Creating...
                 </>
               ) : (
-                'Create Company'
+                <>
+                  <FaPlusCircle className="btn-icon" />
+                  Create Company
+                </>
               )}
             </button>
           </div>

@@ -1,32 +1,105 @@
-/* Mobile Dashboard Layout Styles */
+/* Mobile Dashboard Layout Styles - Modern Design with Icons */
+
+/* Using a modern, professional font and color palette with CSS variables */
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #50e3c2;
+  --background-color: #f0f4f8;
+  --card-background: #ffffff;
+  --text-color: #333333;
+  --text-light: #666666;
+  --border-color: #e0e0e0;
+  --hover-color: #f5f5f5;
+  --active-color: #e9eff5;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-medium: rgba(0, 0, 0, 0.1);
+  --sidebar-width: 280px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .mobile-dashboard-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
   position: relative;
+  background-color: var(--background-color);
 }
 
-/* Add this new class for the overall centered wrapper on laptop */
 .dashboard-center-wrapper {
-  width: 100%; /* Default to full width for mobile/tablet */
-  position: relative; /* Essential for positioning fixed header/sidebar correctly inside it */
+  width: 100%;
+  position: relative;
+  height: 100%;
 }
 
 /* Mobile Header */
 .mobile-header {
-  /* Change from fixed to absolute if it's inside a max-width container that is centered */
-  position: absolute; /* Changed from fixed */
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
+  height: 64px;
+  background-color: var(--card-background);
+  box-shadow: 0 4px 10px var(--shadow-light);
   display: flex;
   align-items: center;
-  padding: 0 1rem;
+  justify-content: space-between;
+  padding: 0 1.5rem;
   z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.header-company-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.company-logo {
+  height: 36px;
+  width: auto;
+  margin-right: 12px;
+}
+
+.company-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-color);
+  display: none;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  flex-shrink: 0;
 }
 
 /* Hamburger Menu Button */
@@ -34,97 +107,29 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 10px;
   margin-right: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: 8px;
   transition: background-color 0.2s ease;
-}
-
-.hamburger-button:hover {
-  background-color: #f5f5f5;
-}
-
-.hamburger-button:active {
-  background-color: #e0e0e0;
-}
-
-/* Hamburger Icon */
-.hamburger-icon {
-  width: 24px;
-  height: 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-}
-
-.hamburger-line {
-  display: block;
-  height: 2px;
-  width: 100%;
-  background-color: #000;
-  transition: all 0.3s ease;
-  transform-origin: center;
-}
-
-.hamburger-line.open:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.hamburger-line.open:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger-line.open:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -6px);
-}
-
-/* Company Info */
-.company-info {
-  flex: 1;
-}
-
-.company-logo { /* Added styles for company logo */
-  height: 40px; /* Adjust as needed */
-  width: auto;
-  max-width: 150px; /* Ensures logo doesn't get too big */
-}
-
-.company-name {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0;
-  color: #000;
-}
-
-/* User Avatar */
-.user-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #000;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 0.875rem;
+  min-height: 44px;
+  color: var(--text-color);
+  font-size: 1.5rem;
 }
 
 /* Mobile Overlay */
 .mobile-overlay {
-  position: fixed; /* Keep fixed for full screen overlay */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 998;
-  opacity: 0; /* Default hidden state */
-  visibility: hidden; /* Default hidden state */
+  opacity: 0;
+  visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
@@ -135,107 +140,148 @@
 
 /* Mobile Sidebar */
 .mobile-sidebar {
-  /* Change from fixed to absolute if it's inside a max-width container that is centered */
-  position: absolute; /* Changed from fixed */
-  top: 60px; /* Below the header */
+  position: fixed;
+  top: 0;
   left: 0;
   bottom: 0;
-  width: 280px;
-  background-color: #ffffff;
-  border-right: 1px solid #e0e0e0;
+  width: var(--sidebar-width);
+  background-color: var(--card-background);
+  box-shadow: 2px 0 15px var(--shadow-medium);
   transform: translateX(-100%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   z-index: 999;
   overflow-y: auto;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 .mobile-sidebar.open {
   transform: translateX(0);
 }
 
-/* Sidebar Header */
 .sidebar-header {
-  padding: 1.5rem 1rem 1rem 1rem;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 2rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .sidebar-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #000;
+  color: var(--text-color);
   margin: 0;
 }
 
-/* Mobile Navigation */
-.mobile-nav {
-  padding: 1rem 0;
+.sidebar-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 0.25rem;
 }
 
-/* Navigation Buttons */
+.mobile-nav {
+  padding: 1rem 0;
+  flex-grow: 1;
+}
+
+.sidebar-footer {
+  padding: 1rem 0;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+}
+
 .nav-button {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   background: none;
   border: none;
   text-align: left;
-  color: #000;
+  color: var(--text-light);
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  border-left: 3px solid transparent;
+  border-left: 4px solid transparent;
   transition: all 0.2s ease;
-  position: relative;
+  min-height: 44px;
 }
 
 .nav-button:hover {
-  background-color: #f5f5f5;
-}
-
-.nav-button:active {
-  background-color: #e0e0e0;
+  background-color: var(--hover-color);
+  color: var(--text-color);
+  border-left-color: var(--primary-color);
 }
 
 .nav-button.active {
-  background-color: #f0f0f0;
+  background-color: var(--active-color);
   font-weight: 600;
-  border-left-color: #000;
+  color: var(--text-color);
+  border-left-color: var(--primary-color);
 }
 
-/* Logout Button */
+/* Icon styling for react-icons */
+.nav-button svg {
+  margin-right: 12px;
+  font-size: 1.25rem;
+  color: var(--text-light);
+  transition: color 0.2s ease;
+}
+
+.nav-button:hover svg {
+  color: var(--text-color);
+}
+
+.nav-button.active svg {
+  color: var(--primary-color);
+}
+
+/* ----- Logout Button Styling ----- */
 .logout-button {
-  display: block;
-  width: 100%;
-  padding: 1rem;
-  background: none;
+  display: flex;
+  align-items: center;
+  width: calc(100% - 3rem);
+  margin: 1.5rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #ff6b6b, #ff4c4c);
+  color: white;
   border: none;
-  border-top: 1px solid #e0e0e0;
-  text-align: left;
-  color: #666;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 1rem;
-  transition: all 0.2s ease;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(255, 76, 76, 0.2);
+  transition: all 0.3s ease;
+  text-align: center;
+  justify-content: center;
+}
+
+.logout-button svg {
+  color: white;
+  transition: transform 0.3s ease;
+  margin-right: 12px;
 }
 
 .logout-button:hover {
-  background-color: #f5f5f5;
-  color: #000;
+  transform: translateY(-3px) scale(1.02);
+  background: linear-gradient(135deg, #ff4c4c, #ff6b6b);
+  box-shadow: 0 8px 20px rgba(255, 76, 76, 0.3);
+}
+
+.logout-button:hover svg {
+  transform: translateX(5px);
 }
 
 .logout-button:active {
-  background-color: #e0e0e0;
+  transform: translateY(-1px) scale(1);
+  box-shadow: 0 2px 10px rgba(255, 76, 76, 0.2);
 }
 
 /* Main Content */
 .main-content {
-  margin-top: 60px;
-  padding: 1rem;
+  /* margin-top: 0px; */
+  padding: 1.5rem;
   flex: 1;
   overflow-y: auto;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 64px);
 }
 
 .content-wrapper {
@@ -244,102 +290,89 @@
 }
 
 /* Responsive adjustments for larger screens (laptops/desktops) */
-@media (min-width: 769px) { /* Applies to screens wider than your mobile breakpoint */
-  /* Center the entire dashboard content for laptop view */
+@media (min-width: 769px) {
   .dashboard-center-wrapper {
-    max-width: 768px; /* Set your desired fixed width for the "mobile view" on laptop */
-    margin: 0 auto; /* Center the wrapper */
-    /* Add a background color to this wrapper if you want its background to be distinct from the white space */
-    background-color: #ffffff; 
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: add a subtle shadow */
-    height: 100vh; /* Make it take full height within the centered wrapper */
-    overflow: hidden; /* Prevent content from flowing outside this wrapper */
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--card-background);
+    box-shadow: 0 0 20px var(--shadow-light);
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .mobile-header {
+    position: sticky;
+    border-radius: 15px 15px 0 0;
   }
 
   .mobile-sidebar {
-    /* If the wrapper is centered, these positions will be relative to the wrapper */
-    position: absolute; /* Stay absolute to the centered wrapper */
-    top: 60px;
+    position: absolute;
+    top: 64px;
     left: 0;
     bottom: 0;
   }
 
-  .mobile-header {
-    /* If the wrapper is centered, these positions will be relative to the wrapper */
-    position: absolute; /* Stay absolute to the centered wrapper */
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-
-  /* No need for max-width/margin-auto on .main-content or .content-wrapper here,
-     as the .dashboard-center-wrapper is now controlling the overall width and centering.
-     Keep internal padding as desired. */
   .main-content {
-    padding: 1rem; /* Adjust padding within the fixed-width mobile-like container */
+    height: calc(100vh - 64px);
+  }
+
+  .user-name {
+    display: block;
   }
 }
 
-@media (max-width: 320px) {
-  .mobile-sidebar {
-    width: 260px;
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #1a1a1a;
+    --card-background: #252525;
+    --text-color: #e0e0e0;
+    --text-light: #a0a0a0;
+    --border-color: #333333;
+    --hover-color: #353535;
+    --active-color: #2e2e2e;
+    --shadow-light: rgba(0, 0, 0, 0.2);
+    --shadow-medium: rgba(0, 0, 0, 0.4);
+  }
+
+  .hamburger-button {
+    color: var(--text-color);
+  }
+
+  .nav-button svg {
+    color: var(--text-light);
+  }
+
+  .nav-button:hover svg {
+    color: var(--text-color);
+  }
+
+  .nav-button.active svg {
+    color: var(--primary-color);
   }
   
-  .company-name {
-    font-size: 1rem;
+  .logout-button {
+    background: linear-gradient(135deg, #d0021b, #9b0000);
+    box-shadow: 0 4px 15px rgba(208, 2, 27, 0.2);
   }
   
-  .nav-button {
-    padding: 0.875rem;
-    font-size: 0.95rem;
+  .logout-button:hover {
+    background: linear-gradient(135deg, #9b0000, #d0021b);
+    box-shadow: 0 8px 20px rgba(208, 2, 27, 0.3);
   }
 }
 
-/* Smooth scrolling for navigation */
-.mobile-sidebar {
-  scroll-behavior: smooth;
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
 }
 
-/* Focus styles for accessibility */
-.hamburger-button:focus,
-.nav-button:focus,
-.logout-button:focus {
-  outline: 2px solid #000;
+.hamburger-button:focus-visible,
+.nav-button:focus-visible,
+.logout-button:focus-visible {
+  outline: 2px solid var(--primary-color);
   outline-offset: 2px;
-}
-
-/* Ensure proper touch targets */
-.hamburger-button,
-.nav-button,
-.logout-button {
-  min-height: 44px;
-}
-
-/* Animation for smooth transitions */
-@keyframes slideIn {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOut {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
-
-/* Prevent text selection on navigation elements */
-.hamburger-button,
-.nav-button,
-.logout-button {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }

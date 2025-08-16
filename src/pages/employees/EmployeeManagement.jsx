@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Search, Plus, Eye, Trash2, X, Users, Building, Mail, Phone, Calendar, MapPin, Loader, UserCheck, UserX } from 'lucide-react';
+import { FaSearch, FaPlus, FaEye, FaUsers, FaBuilding, FaEnvelope, FaPhone, FaCalendarAlt, FaMapMarkerAlt, FaSpinner, FaUserCheck, FaUserTimes, FaExclamationTriangle, FaTimes, FaBirthdayCake, FaHeart, FaHandsHelping } from 'react-icons/fa';
 import { handleGetAllEmployees, handleGetEmployeeById, handleUpdateEmployeeStatus } from '../../services/employeeService';
 import './EmployeeManagement.css';
 
@@ -73,7 +73,7 @@ const EmployeeManagement = () => {
       department: employee.job_role, // Using job_role as department for now
       role: employee.job_role,
       joinDate: new Date(employee.created_at).toISOString().split('T')[0],
-      status: employee.employee_status || 'Active', // Use actual status from API
+      status: employee.employee_status || 'ACTIVE', // Use actual status from API
       location: employee.nationality || 'Not specified',
       salary: 'Not specified', // API doesn't provide salary
       gender: employee.gender,
@@ -169,7 +169,7 @@ const EmployeeManagement = () => {
     return (
       <div className="employee-management">
         <div className="loading-container">
-          <Loader className="loading-spinner" />
+          <FaSpinner className="loading-spinner" />
           <p>Loading employees...</p>
         </div>
       </div>
@@ -180,6 +180,7 @@ const EmployeeManagement = () => {
     return (
       <div className="employee-management">
         <div className="error-container">
+          <FaExclamationTriangle className="error-icon" />
           <p className="error-message">Error: {error}</p>
           <button onClick={fetchEmployees} className="btn-primary">
             Retry
@@ -191,145 +192,135 @@ const EmployeeManagement = () => {
 
   return (
     <div className="employee-management">
-      {/* Header */}
-      <div className="management-header">
-        <div className="management-header-content">
-          <div className="management-header-inner">
-            <div className="management-header-left">
-              <Users className="management-logo" />
-              <h1 className="management-title">Employee Dashboard</h1>
-              <span className="employee-count">({employees.length} employees)</span>
-            </div>
-            <div className="header-actions">
-              <button onClick={fetchEmployees} className="btn-outline">
-                Refresh
-              </button>
-              <button
-                onClick={() => setShowAddForm(true)}
-                className="btn-primary"
-              >
-                <Plus className="btn-icon" />
-                Add Employee
-              </button>
-            </div>
-          </div>
+      <div className="page-header">
+        <div className="page-header-text">
+          <h1 className="page-title">Employee Management</h1>
+          <p className="page-subtitle">Manage and track your company's employees.</p>
+        </div>
+        <div className="page-header-actions">
+          {/* <button
+            onClick={fetchEmployees}
+            className="btn-outline"
+          >
+            Refresh
+          </button> */}
+          <button
+            onClick={() => setShowAddForm(true)}
+            className="btn-primary"
+          >
+            <FaPlus className="btn-icon" />
+            Add Employee
+          </button>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="management-content">
-        {/* Filters */}
-        <div className="filters-section">
-          <div className="search-input-wrapper">
-            <Search className="search-icon" />
-            <input
-              type="text"
-              placeholder="Search employees..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="form-input"
-            />
-          </div>
-          
-          <select
-            value={departmentFilter}
-            onChange={(e) => setDepartmentFilter(e.target.value)}
-            className="form-select"
-          >
-            <option value="">All Departments</option>
-            {departments.map(dept => (
-              <option key={dept} value={dept}>{dept}</option>
-            ))}
-          </select>
-
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="form-select"
-          >
-            <option value="">All Status</option>
-            <option value="ACTIVE">Active</option>
-            <option value="INACTIVE">Inactive</option>
-          </select>
+      <div className="filters-section">
+        <div className="search-input-wrapper">
+          <FaSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search employees..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="form-input"
+          />
         </div>
-
-        {/* Employee Grid */}
-        <div className="employee-grid">
-          {filteredEmployees.map(employee => (
-            <div
-              key={employee.id}
-              className="employee-card"
-              onClick={() => handleEmployeeClick(employees.find(emp => emp.employee_id === employee.id))}
-            >
-              <div className="employee-card-header">
-                <div className="employee-info">
-                  <h3>{employee.name}</h3>
-                  <p>{employee.role}</p>
-                </div>
-                <span className={`status-badge ${employee.status === 'ACTIVE' ? 'status-active' : 'status-inactive'}`}>
-                  {employee.status}
-                </span>
-              </div>
-              
-              <div className="employee-details">
-                <div className="detail-item">
-                  <Building className="detail-icon" />
-                  {employee.department}
-                </div>
-                <div className="detail-item">
-                  <Mail className="detail-icon" />
-                  {employee.email}
-                </div>
-                <div className="detail-item">
-                  <Phone className="detail-icon" />
-                  {employee.phone}
-                </div>
-              </div>
-
-              <div className="employee-actions">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleEmployeeClick(employees.find(emp => emp.employee_id === employee.id));
-                  }}
-                  className="btn-secondary"
-                >
-                  <Eye className="btn-icon-sm" />
-                  View Details
-                </button>
-                
-                <button
-                  onClick={(e) => handleStatusUpdate(employee.id, employee.status, e)}
-                  className={`btn-outline ${employee.status === 'ACTIVE' ? 'btn-danger' : 'btn-success'}`}
-                  disabled={updatingStatus}
-                >
-                  {employee.status === 'ACTIVE' ? (
-                    <>
-                      <UserX className="btn-icon-sm" />
-                      Deactivate
-                    </>
-                  ) : (
-                    <>
-                      <UserCheck className="btn-icon-sm" />
-                      Activate
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
+        
+        <select
+          value={departmentFilter}
+          onChange={(e) => setDepartmentFilter(e.target.value)}
+          className="form-select"
+        >
+          <option value="">All Departments</option>
+          {departments.map(dept => (
+            <option key={dept} value={dept}>{dept}</option>
           ))}
-        </div>
+        </select>
 
-        {/* Empty State */}
-        {filteredEmployees.length === 0 && !loading && (
-          <div className="empty-state">
-            <Users className="empty-state-icon" />
-            <p className="empty-state-text">No employees found matching your criteria.</p>
-          </div>
-        )}
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="form-select"
+        >
+          <option value="">All Status</option>
+          <option value="ACTIVE">Active</option>
+          <option value="INACTIVE">Inactive</option>
+        </select>
       </div>
 
-      {/* Employee Detail Modal */}
+      <div className="employee-grid">
+        {filteredEmployees.map(employee => (
+          <div
+            key={employee.id}
+            className="employee-card"
+            onClick={() => handleEmployeeClick(employees.find(emp => emp.employee_id === employee.id))}
+          >
+            <div className="employee-card-header">
+              <div className="employee-info">
+                <h3>{employee.name}</h3>
+                <p>{employee.role}</p>
+              </div>
+              <span className={`status-badge ${employee.status === 'ACTIVE' ? 'status-active' : 'status-inactive'}`}>
+                {employee.status}
+              </span>
+            </div>
+            
+            <div className="employee-details">
+              <div className="detail-item">
+                <FaBuilding className="detail-icon" />
+                {employee.department}
+              </div>
+              <div className="detail-item">
+                <FaEnvelope className="detail-icon" />
+                {employee.email}
+              </div>
+              <div className="detail-item">
+                <FaPhone className="detail-icon" />
+                {employee.phone}
+              </div>
+            </div>
+
+            <div className="employee-actions">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleEmployeeClick(employees.find(emp => emp.employee_id === employee.id));
+                }}
+                className="btn-secondary"
+              >
+                <FaEye className="btn-icon-sm" />
+                View Details
+              </button>
+              
+              <button
+                onClick={(e) => handleStatusUpdate(employee.id, employee.status, e)}
+                className={`btn-toggle-status ${employee.status === 'ACTIVE' ? 'deactivate' : 'activate'}`}
+                disabled={updatingStatus}
+              >
+                {employee.status === 'ACTIVE' ? (
+                  <>
+                    <FaUserTimes className="btn-icon-sm" />
+                    Deactivate
+                  </>
+                ) : (
+                  <>
+                    <FaUserCheck className="btn-icon-sm" />
+                    Activate
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {filteredEmployees.length === 0 && !loading && (
+        <div className="empty-state">
+          <FaUsers className="empty-state-icon" />
+          <p className="empty-state-text">No employees found matching your criteria.</p>
+        </div>
+      )}
+
       {selectedEmployee && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -339,14 +330,14 @@ const EmployeeManagement = () => {
                 onClick={closeModal}
                 className="btn-close"
               >
-                <X className="close-icon" />
+                <FaTimes className="close-icon" />
               </button>
             </div>
             
             <div className="modal-body">
               {loadingDetails ? (
                 <div className="loading-container">
-                  <Loader className="loading-spinner" />
+                  <FaSpinner className="loading-spinner" />
                   <p>Loading employee details...</p>
                 </div>
               ) : (
@@ -354,25 +345,25 @@ const EmployeeManagement = () => {
                   <div className="employee-detail-header">
                     <div className="employee-detail-info">
                       <h3>{selectedEmployee.name}</h3>
-                      <p>{selectedEmployee.role}</p>
+                      <p className="employee-detail-role">{selectedEmployee.role}</p>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div className="employee-detail-actions">
                       <span className={`status-badge ${selectedEmployee.status === 'ACTIVE' ? 'status-active' : 'status-inactive'}`}>
                         {selectedEmployee.status}
                       </span>
                       <button
                         onClick={(e) => handleStatusUpdate(selectedEmployee.id, selectedEmployee.status, e)}
-                        className={`btn-outline ${selectedEmployee.status === 'ACTIVE' ? 'btn-danger' : 'btn-success'}`}
+                        className={`btn-toggle-status ${selectedEmployee.status === 'ACTIVE' ? 'deactivate' : 'activate'}`}
                         disabled={updatingStatus}
                       >
                         {selectedEmployee.status === 'ACTIVE' ? (
                           <>
-                            <UserX className="btn-icon-sm" />
+                            <FaUserTimes className="btn-icon-sm" />
                             Deactivate
                           </>
                         ) : (
                           <>
-                            <UserCheck className="btn-icon-sm" />
+                            <FaUserCheck className="btn-icon-sm" />
                             Activate
                           </>
                         )}
@@ -384,25 +375,25 @@ const EmployeeManagement = () => {
                     <div className="detail-section">
                       <h4>Contact Information</h4>
                       <div className="detail-row">
-                        <Mail className="detail-row-icon" />
+                        <FaEnvelope className="detail-row-icon" />
                         <div className="detail-row-content">
-                          <p>Email</p>
+                          <p className="detail-label">Email</p>
                           <p>{selectedEmployee.email}</p>
                         </div>
                       </div>
                       
                       <div className="detail-row">
-                        <Phone className="detail-row-icon" />
+                        <FaPhone className="detail-row-icon" />
                         <div className="detail-row-content">
-                          <p>Phone</p>
+                          <p className="detail-label">Phone</p>
                           <p>{selectedEmployee.phone}</p>
                         </div>
                       </div>
                       
                       <div className="detail-row">
-                        <Building className="detail-row-icon" />
+                        <FaBuilding className="detail-row-icon" />
                         <div className="detail-row-content">
-                          <p>Job Role</p>
+                          <p className="detail-label">Job Role</p>
                           <p>{selectedEmployee.role}</p>
                         </div>
                       </div>
@@ -411,41 +402,41 @@ const EmployeeManagement = () => {
                     <div className="detail-section">
                       <h4>Personal Information</h4>
                       <div className="detail-row">
-                        <Calendar className="detail-row-icon" />
+                        <FaBirthdayCake className="detail-row-icon" />
                         <div className="detail-row-content">
-                          <p>Date of Birth</p>
+                          <p className="detail-label">Date of Birth</p>
                           <p>{selectedEmployee.dateOfBirth ? new Date(selectedEmployee.dateOfBirth).toLocaleDateString() : 'Not specified'}</p>
                         </div>
                       </div>
                       
                       <div className="detail-row">
-                        <MapPin className="detail-row-icon" />
+                        <FaMapMarkerAlt className="detail-row-icon" />
                         <div className="detail-row-content">
-                          <p>Nationality</p>
+                          <p className="detail-label">Nationality</p>
                           <p>{selectedEmployee.location}</p>
                         </div>
                       </div>
                       
                       <div className="detail-row">
-                        <Users className="detail-row-icon" />
+                        <FaUsers className="detail-row-icon" />
                         <div className="detail-row-content">
-                          <p>Gender</p>
+                          <p className="detail-label">Gender</p>
                           <p>{selectedEmployee.gender || 'Not specified'}</p>
                         </div>
                       </div>
 
                       <div className="detail-row">
-                        <div className="detail-row-icon">♥</div>
+                        <FaHeart className="detail-row-icon" />
                         <div className="detail-row-content">
-                          <p>Blood Group</p>
+                          <p className="detail-label">Blood Group</p>
                           <p>{selectedEmployee.bloodGroup || 'Not specified'}</p>
                         </div>
                       </div>
 
                       <div className="detail-row">
-                        <div className="detail-row-icon">💍</div>
+                        <FaHandsHelping className="detail-row-icon" />
                         <div className="detail-row-content">
-                          <p>Marital Status</p>
+                          <p className="detail-label">Marital Status</p>
                           <p>{selectedEmployee.maritalStatus || 'Not specified'}</p>
                         </div>
                       </div>
@@ -454,17 +445,17 @@ const EmployeeManagement = () => {
                     <div className="detail-section">
                       <h4>Emergency Contact</h4>
                       <div className="detail-row">
-                        <Users className="detail-row-icon" />
+                        <FaUserCheck className="detail-row-icon" />
                         <div className="detail-row-content">
-                          <p>Contact Person</p>
+                          <p className="detail-label">Contact Person</p>
                           <p>{selectedEmployee.emergencyContact || 'Not specified'}</p>
                         </div>
                       </div>
                       
                       <div className="detail-row">
-                        <Phone className="detail-row-icon" />
+                        <FaPhone className="detail-row-icon" />
                         <div className="detail-row-content">
-                          <p>Emergency Phone</p>
+                          <p className="detail-label">Emergency Phone</p>
                           <p>{selectedEmployee.emergencyPhone || 'Not specified'}</p>
                         </div>
                       </div>
@@ -477,7 +468,6 @@ const EmployeeManagement = () => {
         </div>
       )}
 
-      {/* Add Employee Modal */}
       {showAddForm && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -487,7 +477,7 @@ const EmployeeManagement = () => {
                 onClick={() => setShowAddForm(false)}
                 className="btn-close"
               >
-                <X className="close-icon" />
+                <FaTimes className="close-icon" />
               </button>
             </div>
             

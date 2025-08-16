@@ -1,213 +1,270 @@
-/* EmployeeProfile.css */
+/* EmployeeProfile.css - Modern, Professional Design */
+
+:root {
+  --primary-color: #4a90e2;
+  --background-color: #f0f4f8;
+  --card-background: #ffffff;
+  --text-color: #333333;
+  --text-light: #666666;
+  --border-color: #e0e0e0;
+  --hover-color: #f5f5f5;
+  --active-color: #e9eff5;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-medium: rgba(0, 0, 0, 0.1);
+  --success-color: #4CAF50;
+  --danger-color: #f44336;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .employee-profile-container {
   min-height: 100vh;
-  background-color: #f9fafb;
-  padding: 1rem;
+  background-color: var(--background-color);
+  padding: 2rem;
 }
 
 .employee-profile-wrapper {
-  max-width: 64rem;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .employee-profile-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .employee-profile-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #000000;
-  line-height: 1.6;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 0.5rem 0;
 }
 
 .employee-profile-subtitle {
-  font-size: 0.875rem;
-  color: #6b7280;
-  margin-top: 0.25rem;
+  font-size: 1rem;
+  color: var(--text-light);
+  margin: 0;
 }
 
 .employee-profile-cards {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 /* Card Styles */
 .employee-card {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  box-shadow: 0 5px 20px var(--shadow-light);
+  transition: box-shadow 0.3s ease;
 }
 
 .card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
 }
 
 .card-header-left {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .card-icon {
-  width: 1rem;
-  height: 1rem;
-  color: #6b7280;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary-color);
 }
 
 .card-title {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #000000;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
 }
 
 .card-header-right {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
 .card-action-btn {
-  padding: 0.25rem;
+  background: none;
   border: none;
-  background: transparent;
-  border-radius: 0.25rem;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  color: var(--text-light);
 }
 
 .card-action-btn:hover {
-  background-color: #f3f4f6;
+  background-color: var(--hover-color);
+  color: var(--text-color);
+}
+
+.card-action-btn.card-action-edit {
+  color: var(--primary-color);
+}
+
+.card-action-btn.card-action-edit:hover {
+  background-color: #e6f7ff;
 }
 
 .card-action-icon {
-  width: 0.875rem;
-  height: 0.875rem;
-  color: #6b7280;
+  width: 1rem;
+  height: 1rem;
 }
 
 /* Card Content */
 .card-content {
-  padding: 0.75rem;
+  padding: 1.5rem;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  overflow: hidden;
 }
 
 .card-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
 .field-group {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
 .field-label {
-  font-size: 0.75rem;
-  color: #6b7280;
+  font-size: 0.875rem;
+  color: var(--text-light);
   font-weight: 500;
 }
 
 .field-value {
-  font-size: 0.75rem;
-  color: #000000;
+  font-size: 1rem;
+  color: var(--text-color);
+  font-weight: 500;
+  margin: 0;
 }
 
 .field-input {
   width: 100%;
-  font-size: 0.75rem;
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.25rem;
-  transition: border-color 0.2s ease;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background-color: var(--hover-color);
 }
 
 .field-input:focus {
   outline: none;
-  border-color: #000000;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+  background-color: var(--card-background);
+}
+
+.field-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23666666'%3e%3cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
 }
 
 /* Edit Actions */
 .edit-actions {
   display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.save-btn, .cancel-btn {
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
-  margin-top: 1rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid #e5e7eb;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .save-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem 0.75rem;
-  background-color: #000000;
+  background-color: var(--primary-color);
   color: #ffffff;
-  font-size: 0.75rem;
   border: none;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
 .save-btn:hover {
-  background-color: #374151;
+  background-color: #1a73e8;
 }
 
 .cancel-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem 0.75rem;
-  border: 1px solid #d1d5db;
   background-color: transparent;
-  font-size: 0.75rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
 }
 
 .cancel-btn:hover {
-  background-color: #f9fafb;
+  background-color: var(--hover-color);
 }
 
 .btn-icon {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 1rem;
+  height: 1rem;
 }
 
 /* Leave Balance Specific Styles */
 .leave-section {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .leave-type {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .leave-type-title {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: #000000;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
   text-transform: capitalize;
 }
 
 .leave-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .leave-stat {
@@ -215,138 +272,158 @@
 }
 
 .leave-stat-label {
-  font-size: 0.75rem;
-  color: #6b7280;
+  font-size: 0.875rem;
+  color: var(--text-light);
 }
 
 .leave-stat-value {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #000000;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
 }
 
 .leave-progress-bar {
   width: 100%;
-  background-color: #e5e7eb;
+  background-color: var(--border-color);
   border-radius: 9999px;
-  height: 0.5rem;
+  height: 8px;
 }
 
 .leave-progress-fill {
-  background-color: #000000;
-  height: 0.5rem;
+  background-color: var(--primary-color);
+  height: 8px;
   border-radius: 9999px;
   transition: width 0.3s ease;
 }
 
-/* Mobile-first responsive design */
-@media screen and (max-width: 480px) {
-  .employee-profile-container {
-    padding: 0.75rem;
-  }
-  
-  .employee-profile-title {
-    font-size: 1.125rem;
-  }
-  
-  .card-header {
-    padding: 0.625rem;
-  }
-  
-  .card-content {
-    padding: 0.625rem;
-  }
-  
-  .card-grid {
-    gap: 0.625rem;
-  }
-}
-
-/* Small tablets */
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .employee-profile-container {
-    padding: 1rem;
-  }
-  
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .field-full-width {
-    grid-column: span 2;
-  }
-}
-
-/* Large tablets and small laptops */
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  .employee-profile-container {
-    padding: 1.25rem;
-  }
-  
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .field-full-width {
-    grid-column: span 2;
-  }
-}
-
-/* Desktop */
-@media screen and (min-width: 1025px) {
+/* Responsive design */
+@media screen and (max-width: 768px) {
   .employee-profile-container {
     padding: 1.5rem;
   }
   
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .employee-profile-wrapper {
+    padding: 0;
   }
   
-  .field-full-width {
-    grid-column: span 2;
+  .employee-profile-header {
+    margin-bottom: 1.5rem;
   }
   
   .employee-profile-title {
     font-size: 1.5rem;
   }
-}
-
-/* Handle very wide screens */
-@media screen and (min-width: 1920px) {
-  .employee-profile-wrapper {
-    max-width: 80rem;
+  
+  .employee-profile-subtitle {
+    font-size: 0.9rem;
   }
   
-  .employee-profile-container {
-    padding: 2rem;
-  }
-}
-
-/* PWA specific adjustments */
-@media screen and (max-height: 600px) {
-  .employee-profile-container {
-    padding: 0.5rem;
+  .employee-card {
+    padding: 0;
   }
   
-  .employee-profile-header {
-    margin-bottom: 1rem;
+  .card-header {
+    padding: 0.75rem;
+  }
+  
+  .card-content {
+    padding: 1rem;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .leave-stats {
+    gap: 0.5rem;
   }
 }
 
-/* Ensure proper display on iOS devices */
-@supports (-webkit-touch-callout: none) {
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #121212;
+    --card-background: #1e1e1e;
+    --text-color: #e0e0e0;
+    --text-light: #a0a0a0;
+    --border-color: #333333;
+    --hover-color: #2e2e2e;
+    --active-color: #282828;
+    --shadow-light: rgba(0, 0, 0, 0.2);
+  }
+
   .employee-profile-container {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+    color: var(--text-color);
+  }
+
+  .employee-card {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card-header, .card-content, .edit-actions {
+    border-color: #333333;
+  }
+
+  .card-action-btn:hover {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+  }
+  
+  .card-action-btn.card-action-edit:hover {
+    background-color: #004b90;
+  }
+  
+  .field-input {
+    background-color: #2e2e2e;
+    border-color: #444444;
+    color: var(--text-color);
+  }
+
+  .field-input:focus {
+    background-color: #2e2e2e;
+    border-color: var(--primary-color);
+  }
+  
+  .field-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23a0a0a0'%3e%3cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3e%3c/svg%3e");
+  }
+
+  .cancel-btn {
+    background-color: #2e2e2e;
+    border-color: #444444;
+    color: var(--text-color);
+  }
+
+  .cancel-btn:hover {
+    background-color: #383838;
+  }
+  
+  .leave-progress-bar {
+    background-color: #333333;
   }
 }
 
-/* High DPI displays */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .card-icon,
-  .card-action-icon,
-  .btn-icon {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .employee-card,
+  .card-action-btn,
+  .field-input,
+  .field-select,
+  .save-btn,
+  .cancel-btn,
+  .leave-progress-fill {
+    transition: none;
+    animation: none;
   }
+}
+
+.card-action-btn:focus-visible,
+.field-input:focus-visible,
+.field-select:focus-visible,
+.save-btn:focus-visible,
+.cancel-btn:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
